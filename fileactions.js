@@ -2,6 +2,7 @@ var split = require('./split');
 var printEpisode = require('./printEpisode');
 var stars = require('./stars');
 var sortEpisodes = require('./sortEpisodes');
+var filterEpisodes = require('./filterEpisodes');
 
 var colors = require('colors/safe');
 
@@ -10,12 +11,10 @@ function fileactions(err, file){
         throw err;
     }
     var episodes = JSON.parse(file);
-    //console.log(episodes[0])
-    //console.log(`jrerbhhbfej ${episodes[0].title}`)
-    console.log(sortEpisodes(episodes));
 
+    episodes = sortEpisodes(episodes);
+    episodes = filterEpisodes(episodes); //episodes filtered by rating < 8.5
     
-
   	episodes.forEach(function(episode, index){
   		var newDescription = split(episodes[index].description);
     	var ratingStars = stars(episodes[index].rating)
